@@ -1,0 +1,95 @@
+---
+title: 'Time Series: Analysis and its applications'
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
+
+The preview shows you a rendered HTML copy of the contents of the editor. Consequently, unlike *Knit*, *Preview* does not run any R code chunks. Instead, the output of the chunk when it was last run in the editor is displayed.
+
+# 1. INTRODUÇÃO
+
+```{r}
+library(astsa)
+```
+
+# 2. Usando algumas bases de dados do livro 
+
+```{r}
+plot(jj, type = "o", ylab="Quarterly Earnings per Share")
+```
+```{r}
+plot(speech)
+```
+```{r}
+WN <- arima.sim(model = list(order = c(0, 0, 0)), n = 200)
+```
+
+
+```{r}
+plot.ts(WN,col=4, main="White Noise Series")
+```
+```{r}
+w = rnorm(500,0,1) # 500 N(0,1) variates
+v = filter(w, sides=2, rep(1/3,3))
+par(mfrow=c(2,1))
+plot.ts(w, main="white noise")
+plot.ts(v, main="moving average")
+```
+
+```{r}
+w = rnorm(550,0,1) # 50 extra to avoid startup problems
+x = filter(w, filter=c(1,-.9), method="recursive")[-(1:50)]
+plot.ts(x, main="autoregression")
+```
+```{r}
+AR<-x <- arima.sim(model = list(ar = c(0.1,0.1)), n = 1000)
+plot.ts(WN,col=10, main="ar2 PROCESS")
+```
+```{r}
+acf2(AR)
+```
+
+```{r}
+ts.sim <- arima.sim(list(order = c(1,1,0), ar = 0.7), n = 200)
+ts.plot(ts.sim)
+```
+```{r}
+x<-arima.sim(model = list(order=c(2,0,0), ar=c(1,-0.9)),n=500)
+ts.plot(x,col='blue')
+```
+
+```{r}
+set.seed(154)
+```
+
+```{r}
+w = rnorm(200,0,1) 
+x = cumsum(w)
+wd = w +.2 
+xd = cumsum(wd)
+plot.ts(xd, ylim=c(-5,55), main="random walk")
+lines(x)
+lines(.2*(1:200), lty="dashed")
+
+```
+
+```{r}
+cs <- 2*cos(2*pi*1:500/50 + .6*pi)
+w <- rnorm(500,0,1)
+par(mfrow=c(3,1), mar=c(3,2,2,1), cex.main=1.5)
+plot.ts(cs, main=expression(2*cos(2*pi*t/50+.6*pi)))
+plot.ts(cs+w, main=expression(2*cos(2*pi*t/50+.6*pi) + N(0,1)))
+plot.ts(cs+5*w, main=expression(2*cos(2*pi*t/50+.6*pi) + N(0,25)))
+```
+```{r}
+speech
+```
+
