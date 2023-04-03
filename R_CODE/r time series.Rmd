@@ -1,0 +1,109 @@
+---
+title: 'Time Series '
+output:
+  html_document:
+    df_print: paged
+---
+
+```{r}
+library(astsa)
+```
+
+
+```{r}
+
+par(mfrow=c(2,1))
+
+plot(arima.sim(list(order=c(1,0,0), ar=.9), n=100), ylab="x",
+main=(expression(AR(1)~~~phi==+.9)))
+
+plot(arima.sim(list(order=c(1,0,0), ar=-.9), n=100), ylab="x",
+main=(expression(AR(1)~~~phi==-.9)))
+
+```
+
+```{r}
+par(mfrow = c(2,1))
+
+plot(arima.sim(list(order=c(0,0,1), ma=.5), n=100), ylab="x",
+main=(expression(MA(1)~~~theta==+.5)))
+
+plot(arima.sim(list(order=c(0,0,1), ma=-.5), n=100), ylab="x",
+main=(expression(MA(1)~~~theta==-.5)))
+
+```
+```{r}
+z = c(1,-1.5,.75) # coefficients of the polynomial
+(a = polyroot(z)[1]) # print one root: 1+0.57735i = 1 + i/sqrt(3)
+arg = Arg(a)/(2*pi) # arg in cycles/pt
+1/arg # = 12, the pseudo period
+
+set.seed(90210)
+ar2 = arima.sim(list(order=c(2,0,0), ar=c(1.5,-.75)), n = 144)
+plot(1:144/12, ar2, type="l", xlab="Time (one unit = 12 points)")
+abline(v=0:12, lty="dotted", lwd=2)
+
+ACF = ARMAacf(ar=c(1.5,-.75), ma=0, 50)
+plot(ACF, type="h", xlab="lag")
+abline(h=0)
+```
+```{r}
+ARMAtoMA(ar=.9, ma=.5, 50)
+plot(ARMAtoMA(ar=.9, ma=.5, 50)) # for a graph
+```
+
+```{r}
+ACF = ARMAacf(ar=c(1.5,-.75), ma=0, 24)[-1]
+PACF = ARMAacf(ar=c(1.5,-.75), ma=0, 24, pacf=TRUE)
+par(mfrow=c(1,2))
+plot(ACF, type="h", xlab="lag", ylim=c(-.8,1)); abline(h=0)
+plot(PACF, type="h", xlab="lag", ylim=c(-.8,1)); abline(h=0)
+```
+
+```{r}
+acf2(rec, 48)
+(regr = ar.ols(rec, order=2, demean=FALSE, intercept=TRUE))
+regr$asy.se.coef # standard errors of the estimates
+```
+
+```{r}
+wn <- arima.sim(model = list(order = c(0, 0, 0)), n = 200)
+ts.plot(wn,col=4, main="Ruído Branco")
+```
+```{r}
+acf(wn)
+```
+```{r}
+pacf(wn)
+```
+```{r}
+set.seed(1)
+
+random.walk= arima.sim(model=list(order=c(0,1,0)),n=200)
+plot(random.walk)
+
+```
+
+```{r}
+set.seed(154) # so you can reproduce the results
+w = rnorm(200,0,1) # 200 random numbers ranging from 0 to 1
+x = cumsum(w) #  random walk
+wd = w +.2    
+xd = cumsum(wd) # random wak with drift
+plot.ts(xd, ylim=c(-5,55), main="random walk")
+lines(x) # random walk
+lines(.2*(1:200), lty="dashed")
+
+
+```
+
+
+```{r}
+persp(1:64, 1:36, soiltemp, phi=30, theta=30, scale=FALSE, expand=4,
+ticktype="detailed", xlab="rows", ylab="cols",
+zlab="temperature")
+
+plot.ts(rowMeans(soiltemp), xlab="row", ylab="Average Temperature")
+
+```
+

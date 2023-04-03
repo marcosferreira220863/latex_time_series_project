@@ -1,0 +1,24 @@
+\beamer@sectionintoc {1}{1. Alguns Modelos de Séries Temporais}{4}{0}{1}
+\beamer@subsectionintoc {1}{1}{1.2. Gráficos}{5}{0}{1}
+\beamer@sectionintoc {2}{2.Enfoques de Tratamento de Séries Temporais}{11}{0}{2}
+\beamer@sectionintoc {3}{3. Objetivos da Modelagem de Séries Temporais}{12}{0}{3}
+\beamer@sectionintoc {4}{5. Transformações de Box-Cox}{13}{0}{4}
+\beamer@subsectionintoc {4}{1}{As duas formas básicas de transformação}{14}{0}{4}
+\beamer@subsectionintoc {4}{2}{Escolhendo o valor de $\lambda $}{15}{0}{4}
+\beamer@subsectionintoc {4}{3}{Alguns aplicativos para modelar séries temporais}{17}{0}{4}
+\beamer@sectionintoc {5}{6.Modelos de Séries Temporais}{18}{0}{5}
+\beamer@subsectionintoc {5}{1}{Processos Estocásticos}{18}{0}{5}
+\beamer@subsectionintoc {5}{2}{Processos Estocásticos}{19}{0}{5}
+\beamer@subsectionintoc {5}{3}{Especificação do Processo Estocástico em termos formais}{20}{0}{5}
+\beamer@subsectionintoc {5}{4}{Especificação do Processo Estocástico em termos formais}{21}{0}{5}
+\beamer@subsectionintoc {5}{5}{Especificação do Processo Estocástico em termos formais}{22}{0}{5}
+\beamer@subsectionintoc {5}{6}{Processos Estacionários}{23}{0}{5}
+\beamer@subsectionintoc {5}{7}{Processos Estacionários}{24}{0}{5}
+\beamer@sectionintoc {6}{7.Função de Autocovariância}{25}{0}{6}
+\beamer@subsectionintoc {6}{1}{Autocovariância}{25}{0}{6}
+\beamer@subsectionintoc {6}{2}{Exemplos de Processos Estocásticos}{26}{0}{6}
+\beamer@sectionintoc {7}{8.Modelos Arima}{31}{0}{7}
+\beamer@subsectionintoc {7}{1}{Metodologia de Box-Jenkins}{31}{0}{7}
+\beamer@subsectionintoc {7}{2}{Metodologia de Box-Jenkins}{32}{0}{7}
+\beamer@subsectionintoc {7}{3}{Operadores}{33}{0}{7}
+\beamer@sectionintoc {8}{Bibliografia}{34}{0}{8}

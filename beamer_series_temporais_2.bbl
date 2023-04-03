@@ -1,30 +1,32 @@
 \begin{thebibliography}{1}
 
-\bibitem{dinardo1997econometric}
-J.~Dinardo, J.~Johnston, and J.~Johnston, ``Econometric methods,'' {\em Forth
-  Edition) McGraw-Hill Companies, Inc}, pp.~204--326, 1997.
-
 \bibitem{morettin2018analise}
 P.~A. Morettin and C.~M. Toloi, {\em An{\'a}lise de s{\'e}ries temporais:
   modelos lineares univariados}.
 \newblock Editora Blucher, 2018.
 
-\bibitem{tripathi2000econometric}
-G.~Tripathi, ``Econometric methods: by jack johnston and john dinardo, mcgraw
-  hill, 1997,'' {\em Econometric Theory}, vol.~16, no.~1, pp.~139--142, 2000.
-
 \bibitem{hamilton2020time}
 J.~D. Hamilton, {\em Time series analysis}.
 \newblock Princeton university press, 2020.
 
-\bibitem{de2018tendencias}
-R.~S. de~Mattos, ``Tend{\^e}ncias e ra{\'\i}zes unit{\'a}rias,'' {\em Texto
-  Did{\'a}tico}, 2018.
+\bibitem{enders2008applied}
+W.~Enders, {\em Applied econometric time series}.
+\newblock John Wiley \& Sons, 2008.
 
 \bibitem{shumway2000time}
 R.~H. Shumway, D.~S. Stoffer, and D.~S. Stoffer, {\em Time series analysis and
   its applications}, vol.~3.
 \newblock Springer, 2000.
+
+\bibitem{box1964analysis}
+G.~E. Box and D.~R. Cox, ``An analysis of transformations,'' {\em Journal of
+  the Royal Statistical Society: Series B (Methodological)}, vol.~26, no.~2,
+  pp.~211--243, 1964.
+
+\bibitem{hyndman2018forecasting}
+R.~J. Hyndman and G.~Athanasopoulos, {\em Forecasting: principles and
+  practice}.
+\newblock OTexts, 2018.
 
 \bibitem{fischer1982series}
 S.~Fischer, {\em S{\'e}ries univariantes de tempo-metodologia de Box \&

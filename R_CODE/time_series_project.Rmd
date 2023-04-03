@@ -36,19 +36,7 @@ WN <- arima.sim(model = list(order = c(0, 0, 0)), n = 200)
 ```{r}
 plot.ts(WN,col=4, main="White Noise Series")
 ```
-```{r}
-w = rnorm(500,0,1) # 500 N(0,1) variates
-v = filter(w, sides=2, rep(1/3,3))
-par(mfrow=c(2,1))
-plot.ts(w, main="white noise")
-plot.ts(v, main="moving average")
-```
 
-```{r}
-w = rnorm(550,0,1) # 50 extra to avoid startup problems
-x = filter(w, filter=c(1,-.9), method="recursive")[-(1:50)]
-plot.ts(x, main="autoregression")
-```
 ```{r}
 AR<-x <- arima.sim(model = list(ar = c(0.1,0.1)), n = 1000)
 plot.ts(WN,col=10, main="ar2 PROCESS")
@@ -90,6 +78,243 @@ plot.ts(cs+w, main=expression(2*cos(2*pi*t/50+.6*pi) + N(0,1)))
 plot.ts(cs+5*w, main=expression(2*cos(2*pi*t/50+.6*pi) + N(0,25)))
 ```
 ```{r}
-speech
+acf(speech,250)
+```
+```{r}
+par(mfrow <- c(3,1))
+acf(soi, 48, main="Southern Oscillation Index")
+acf(rec, 48, main="Recruitment")
+ccf(soi, rec, 48, main="SOI vs Recruitment", ylab="CCF")
+```
+
+```{r}
+ACF  = ARMAacf(ar=c(1.5,-.75), ma=0, 24)[-1]
+PACF = ARMAacf(ar=c(1.5,-.75), ma=0, 24, pacf=TRUE)
+par(mfrow=c(1,2))
+plot(ACF, type="h", xlab="lag", ylim=c(-.8,1)); abline(h=0)
+plot(PACF, type="h", xlab="lag", ylim=c(-.8,1)); abline(h=0)
+               
+```
+
+```{r}
+acf2(rec, 48) # will produce values and a graphic
+(regr = ar.ols(rec, order=2, demean=FALSE, intercept=TRUE))
+regr$asy.se.coef # standard errors of the estimates
+```
+```{r}
+library(astsa)
+library(dplyr)
+library(glmnet)
+set.seed(1)
+
+dados = read.table("http://statweb.stanford.edu/~tibs/ElemStatLearn/datasets/prostate.data")
+
+
+
+```
+
+
+```{r}
+tr <- dados$train
+```
+
+```{r}
+X_tr <- dados[tr, 1:8] %>% as.matrix()
+y_tr <- dados$lpsa[tr]
+```
+
+```{r}
+X_val <- dados[-tr, 1:8] %>% as.matrix()
+y_val <- dados$lpsa[-tr]
+
+```
+
+```{r}
+ajuste_mq <- glmnet(X_tr, y_tr, alpha = 0, lambda = 0)
+predito_mq <- predict(ajuste_mq, newx = X_val)
+```
+
+
+
+```{r}
+cv_ridge <- cv.glmnet(X_tr, y_tr, alpha = 0)
+ajuste_ridge <- glmnet(X_tr, y_tr, alpha = 0)
+predito_ridge <- predict(ajuste_ridge,s = cv_ridge$lambda.1se,newx = X_val)
+```
+
+```{r}
+cv_lasso <- cv.glmnet(X_tr, y_tr, alpha = 1)
+ajuste_lasso <- glmnet(X_tr, y_tr, alpha = 1)
+predito_lasso <- predict(ajuste_lasso,s = cv_lasso$lambda.1se, newx = X_val)
+
+```
+
+```{r}
+plot(ajuste_lasso)
+plot(cv_lasso)
+```
+```{r}
+print(ajuste_lasso)
+```
+```{r}
+plot(cv_lasso)
+```
+```{r}
+#Gerando e plotando duas séries 
+library(ggplot2)
+set.seed(12345)
+
+x<-seq(1,10)
+y1<- runif(10, min = 7, max =10)
+y2<- runif(10, min = 7, max =10)
+y3<- runif(10, min = 7, max =10)
+
+
+df <- data.frame(x,y1,y2,y3)
+
+ggplot(data = df, aes(x = x, y = y1, colour = "1")) +
+  geom_line(colour = "red") +
+  geom_line(aes(x = x, y = y2, colour = "2"), colour = "green") +
+  geom_line(aes(x = x, y = y3, colour = "3"), colour = "blue") +
+  labs(title = "TITULO", x = NULL, y = "Temperatura (C)") +
+  ylim(0,10)
+
+  
+
+
+
+
+
+```
+
+```{r}
+# Livro de Pedro André Morettin
+```
+
+
+```{r}
+pathFile <- "E:\\data\\projeto_latex\\timeseries\\R_CODE\\poluicao.csv"
+
+df <-read.csv2(file=pathFile, sep=";",dec=",", header =TRUE)
+df
+```
+
+
+```{r}
+```
+```{r}
+library(tidyverse)
+
+sapply(df,typeof)
+
+str(df)
+```
+
+```{r}
+df$DATA_TS <- as.Date(df$DATA_TS,format="%Y-%m-%d")
+
+str(df)
+```
+
+
+```{r}
+df
+```
+```{r}
+library(ggplot2)
+
+p<-ggplot(df, aes(x = DATA_TS, y = PM10)) +
+       geom_line()
+
+p<-p+ggtitle("Índice de Poluição Cidade de São Paulo: Concentração Média diária")
+
+p<- p+xlab("'Jan a Dez 97") +ylab("Concentração Média PM10 ")
+p
+```
+
+```{r}
+pathFile <- "E:\\data\\projeto_latex\\timeseries\\R_CODE\\temperatura.csv"
+df <-read.csv2(file=pathFile, sep=";",dec=",")
+df$DATA<- as.Date(paste(df$DATA, "-01", sep=""),'%Y-%m-%d')
+str(df)
+df
+```
+```{r}
+#df$DATA <- as.Date(df$DATA,format="%Y-%m-%d")
+
+str(df)
+```
+```{r}
+p<-ggplot(df, aes(x = DATA, y = Cananeia)) +
+       geom_line()
+p<-p+ggtitle("Temperatura Mensal Cananeia")
+
+p<- p+xlab("Jan 1976 a Jan 1985 ") +ylab("Temperatura Mensal Média")
+p
+```
+```{r}
+pathFile <- "E:\\data\\projeto_latex\\timeseries\\R_CODE\\D-IBV.csv"
+df <-read.csv2(file=pathFile, sep=";",dec=".")
+df$DATA<- as.Date(df$DATA,'%Y-%m-%d')
+str(df)
+df
+```
+```{r}
+```
+
+
+```{r}
+p<-ggplot(df, aes(x = DATA, y = df$IBV_D)) +
+       geom_line()
+p<-p+ggtitle("Indice diário Bovespa")
+
+p<- p+xlab("Agosto de 1998 a Maio de 2001 ") +ylab("IBV.Díario")
+p
+```
+```{r}
+pathFile <- "E:\\data\\projeto_latex\\timeseries\\R_CODE\\fortaleza.csv"
+df <-read.csv2(file=pathFile, sep=";",dec=",")
+df$Ano<- as.Date(paste(df$Ano, "-01-01", sep=""),'%Y-%m-%d')
+str(df)
+df
+
+```
+```{r}
+p<-ggplot(df, aes(x = Ano, y = df$Fort)) +
+       geom_line()
+p<-p+ggtitle("Indice diário Bovespa")
+
+p<- p+xlab("Precipitação Pluviométrica Anual- Fortaleza ") +ylab("Precipitação Anual")
+p
+```
+```{r}
+pathFile <- "E:\\data\\projeto_latex\\timeseries\\R_CODE\\MANCHAS.csv"
+df <-read.csv2(file=pathFile, sep=";",dec=",")
+df$Ano<- as.Date(paste(df$Ano, "-01-01", sep=""),'%Y-%m-%d')
+str(df)
+df
+```
+```{r}
+p<-ggplot(df, aes(x = Ano, y = df$manchas)) +
+       geom_line()
+p<-p+ggtitle("Número médio Anual de Manchas Solares")
+
+p<- p+xlab("Ano") +ylab("Número de Manchas Solares")
+p
+```
+```{r}
+pathFile <- "E:\\data\\projeto_latex\\timeseries\\R_CODE\\pibanual.csv"
+df <-read.csv2(file=pathFile, sep=";",dec=",")
+df$ano<- as.Date(paste(df$ano, "-01-01", sep=""),'%Y-%m-%d')
+str(df)
+df
+```
+```{r}
+p<-ggplot(df, aes(x = ano, y = df$pib1949)) +
+       geom_line()
+p<-p+ggtitle("Pib Anual R$- Preços de 1949")
+
+p<- p+xlab("Ano") +ylab("PIB Anual Preços de 1949")
+p
 ```
 

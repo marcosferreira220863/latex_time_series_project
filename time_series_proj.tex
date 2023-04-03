@@ -6,20 +6,54 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage[brazilian]{babel}
+\usepackage{glossaries}
+\makeglossaries
+\input{definition.tex}
+%\newglossaryentry{latex}
+%{
+%	name=latex,
+%	description={LaTeX (short for Lamport TeX) is a document preparation system. The user has to think about only the content to put in the document and the software will take care of the formatting. }
+%}
+%
+%\newglossaryentry{glsy}
+%{
+%	name=glossary,
+%	description={Acronyms and terms which are generally unknown or new to common readers.}
+%}
+
+
 \title{TESTE DO \LaTeX: RETORNANDO ÀS RAÍZES}
 \author{MARCOS FERREIRA}
+\date{2023-01-24}
+
+
+
 \begin{document}
+	\maketitle
+	\tableofcontents{} 
 	\chapter{INTRODUÇÃO}
 	\section{Alguns exemplos de Séries Temporais}
 		Este é um teste rápido de \LaTeX 
 	\section{Estrutura do Trabalho}
-		Este trabalho divide-se nesta introdução, o capítulo 1 ,\cite{dinardo1997econometric,morettin2018analise}\cite{tripathi2000econometric,hamilton2020time}
+		Este trabalho divide-se nesta introdução, o capítulo 1 ,\cite{dinardo1997econometric,morettin2018analise}\cite{tripathi2000econometric,hamilton2020time},\cite{de2018tendencias,shumway2000time}, \cite{fischer1982series}
 	
 	\chapter{PROCESSO ESTOCÁSTICO}
+	\Gls{latex} is very useful and can use \gls{glsy}.
+	
+	\gls{ubuntu} is a \gls{linux} system.
+	
+	\acrlong{ar} is used to autoregressive time series equations.
+	
+	\acrshort{ma} is used for Moving average time series
+	
+	\acrshort{hw} is used for holt-winters
+	
 	\chapter{PROCESSOS ESTACIONÁRIOS}
-		
+	\printglossaries
 	\bibliography{bibliografia}
 	\bibliographystyle{ieeetr}	
+	\clearpage
 \end{document}
+
 
 
